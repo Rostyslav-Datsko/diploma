@@ -23,8 +23,7 @@ class AuthController extends Controller
         $user->password = Hash::make($request->password);
 
         $user->save();
-
-        return back()->with('success', 'Register successfully');
+        return view('login');
     }
 
     public function login()
@@ -40,7 +39,7 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($credetials)) {
-            return redirect('/home')->with('success', 'Login Success');
+            return redirect('/maine')->with('success', 'Login Success');
         }
 
         return back()->with('error', 'Error Email or Password');

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BudgetCreationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
@@ -14,7 +15,7 @@ use App\Http\Controllers\HomeController;
 |
 */
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
 Route::group(['middleware' => 'guest'], function () {
@@ -25,6 +26,8 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', [HomeController::class, 'index']);
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/budget-creation-form', [BudgetCreationController::class, 'showForm'])->name('budgetCreationForm');
+
     Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
 });

@@ -44,7 +44,6 @@
                     </h1>
 
                     <form action="{{ route('login') }}" method="POST">
-                        @csrf
                         @if(Session::has('error'))
                             <label class="block text-sm">
                                 <span class="text-gray-700 dark:text-gray-400">Email</span>
@@ -114,7 +113,7 @@
                     <p class="mt-1">
                         <a
                             class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
-                            href="{{ route('register') }}"
+                            href="./create-account.html"
                         >
                             Створити профіль
                         </a>

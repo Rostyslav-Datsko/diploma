@@ -1,45 +1,92 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel 10 Custom Login and Registration - Register Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create account - Windmill Dashboard</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/tailwind.output.css" />
+    <script
+        src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+        defer
+    ></script>
+    <script src="../assets/js/init-alpine.js"></script>
 </head>
 <body>
-<div class="row justify-content-center mt-5">
-    <div class="col-lg-4">
-        <div class="card">
-            <div class="card-header">
-                <h1 class="card-title">Register</h1>
+<div class="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
+    <div
+        class="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800"
+    >
+        <div class="flex flex-col overflow-y-auto md:flex-row">
+            <div class="h-32 md:h-auto md:w-1/2">
+                <img
+                    aria-hidden="true"
+                    class="object-cover w-full h-full dark:hidden"
+                    src="../assets/img/create-account-office.jpeg"
+                    alt="Office"
+                />
+                <img
+                    aria-hidden="true"
+                    class="hidden object-cover w-full h-full dark:block"
+                    src="../assets/img/create-account-office-dark.jpeg"
+                    alt="Office"
+                />
             </div>
-            <div class="card-body">
-                @if(Session::has('success'))
-                    <div class="alert alert-success" role="alert">
-                        {{ Session::get('success') }}
-                    </div>
-                @endif
-                <form action="{{ route('register') }}" method="POST">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" name="name" class="form-control" id="name" placeholder="John Doe" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" id="password" required>
-                    </div>
-                    <div class="mb-3">
-                        <div class="d-grid">
-                            <button class="btn btn-primary">Register</button>
-                        </div>
-                    </div>
-                </form>
+            <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
+                <div class="w-full">
+                    <h1
+                        class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200"
+                    >
+                        Створити акаунт
+                    </h1>
+                    <form action="{{ route('register') }}" method="POST">
+                        @csrf
+                        <label class="block text-sm">
+                            <span class="text-gray-700 dark:text-gray-400">Ім'я</span>
+                            <input
+                                name="name" id="name"
+                                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                placeholder="Jane Doe"
+                            />
+                        </label>
+                        <label class="block text-sm">
+                            <span class="text-gray-700 dark:text-gray-400">Email</span>
+                            <input
+                                name="email" id="email"
+                                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                placeholder="jane@gmail.com"
+                            />
+                        </label>
+                        <label class="block mt-4 text-sm">
+                            <span class="text-gray-700 dark:text-gray-400">Пароль</span>
+                            <input
+                                name="password" id="password"
+                                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                placeholder="***************"
+                                type="password"
+                            />
+                        </label>
+                        <button
+                            class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+
+                            class="btn btn-primary">Створити акаунт
+                        </button>
+                        <!-- You should use a button here, as the anchor is only used for the example  -->
+
+                    </form>
+                    <hr class="my-8" />
+                    <p class="mt-4">
+                        <a
+                            class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
+                            href="{{ route('login') }}"
+                        >
+                            Вже маєте обліковий запис? Увійдіть
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
