@@ -1,60 +1,95 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel 10 Custom Login and Registration</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Windmill Dashboard</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/css/tailwind.output.css" />
+    <script
+        src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+        defer
+    ></script>
+    <script src="./assets/js/init-alpine.js"></script>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
+    />
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+        defer
+    ></script>
+    <script src="./assets/js/charts-lines.js" defer></script>
+    <script src="./assets/js/charts-pie.js" defer></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container">
-        <a class="navbar-brand" href="/home">PF</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Головна</a>
-                </li>
-            </ul>
-            <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
-                @csrf
-                @method('DELETE')
-                <button class="btn btn-danger" type="submit">Вихід</button>
-            </form>
-        </div>
-    </div>
-</nav>
+<div
+    class="flex h-screen bg-gray-50 dark:bg-gray-900"
+    :class="{ 'overflow-hidden': isSideMenuOpen }"
+>
+    <!-- Desktop sidebar -->
+    <!-- Mobile sidebar -->
+    <!-- Backdrop -->
+    <div
+        x-show="isSideMenuOpen"
+        x-transition:enter="transition ease-in-out duration-150"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in-out duration-150"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
+    ></div>
 
-<div class="container py-5">
-    <h1> Welcome, {{ Auth::user()->name }}</h1>
+    <div class="flex flex-col flex-1 w-full">
+        @include('parts.header')
+        <main class="h-full overflow-y-auto">
+            <div class="container px-6 mx-auto grid">
+                <h2
+                    class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+                >
+                    Список бюджетів
+                </h2>
 
-    <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2 py-4">
-        <div class="card border-0 bg-light rounded shadow">
-            <div class="card-body p-4">
-                <span class="badge rounded-pill bg-danger float-md-end mb-3 mb-sm-0">Видалити</span>
-                <h5>Назва бюджету</h5>
+                <!-- Cards -->
+                <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
 
-                <div class="mt-3 pt-5 mt-5">
-                    <a href="#" class="btn btn-primary">Деталі</a>
+                    <!-- Card -->
+                    <div class="p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 w-full">
+                        <div>
+                            <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                                Бюджет №1 (червень 2024)
+                            </p>
+                        </div>
+                        <div class="mt-4">
+                            <a href="/budget-management-history">
+                                <button class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                    Переглянути
+                                </button>
+                            </a>
+
+                            <button class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+                                Видалити
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+                    <a href="/budget-creation-form">
+                        <button class="px-10 py-4 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                            Створити новий бюджет
+                        </button>
+                    </a>
+
                 </div>
             </div>
-        </div>
+        </main>
     </div>
-
-    <a href="{{ route('budgetCreationForm') }}">
-        <button type="button" class="btn btn-lg btn-outline-primary">Створити новий бюджет</button>
-    </a>
-
 </div>
-
-
-
-
-
-
 </body>
 </html>

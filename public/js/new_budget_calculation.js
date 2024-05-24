@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ]);
         const budgetBalance = incomeSum - expensesSum;
         budgetBalanceElement.textContent = `${budgetBalance.toLocaleString()} грн`;
-        budgetBalanceElement.className = budgetBalance >= 0 ? 'text-success' : 'text-danger';
+        budgetBalanceElement.className = budgetBalance >= 0 ? 'text-xl text-green-600 dark:text-green-400' : 'text-xl text-red-600 dark:text-red-400';
     }
 
     // Function to calculate the sum of specified input fields
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Add event listeners to trigger calculations on input
-    document.querySelectorAll('input').forEach(input => {
+    document.querySelectorAll('input[type="number"]').forEach(input => {
         input.addEventListener('input', () => {
             calculateIncomeSum();
             calculateExpensesSum();
